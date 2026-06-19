@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jota Fix - Soporte Técnico y Optimización de Hardware</title>
+    <meta name="description" content="Jota Fix: Servicios profesionales de reparación de equipos, limpieza ultra y montaje de PCs. Expertos en soporte técnico y optimización de hardware.">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'black-zinc': '#0a0a0a',
+                        'charcoal': '#1a1a1a',
+                        'kuromi-purple': '#a855f7',
+                        'kuromi-purple-dark': '#7e22ce',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet CSS (mapa interactivo) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-black-zinc text-gray-300 font-sans antialiased">
+
+    <!-- Pantalla de carga -->
+    <div id="loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black-zinc">
+        <div class="text-center">
+            <div class="mb-8">
+                <span class="text-4xl font-bold text-kuromi-purple">Jota</span><span class="text-4xl font-bold text-white">Fix</span>
+            </div>
+            <div class="loader-ring mx-auto mb-6"></div>
+            <p class="text-gray-500 text-sm tracking-widest uppercase">Cargando...</p>
+        </div>
+    </div>
+    
+    <!-- Navegación -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold text-kuromi-purple">Jota<span class="text-white">Fix</span></span>
+                </a>
+                
+                <!-- Menú de navegación (Desktop) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#hero" class="nav-link">Inicio</a>
+                    <a href="#servicios" class="nav-link">Servicios</a>
+                    <a href="#precios" class="nav-link">Precios</a>
+                    <a href="#testimonios" class="nav-link">Opiniones</a>
+                    <a href="#antes-despues" class="nav-link">Resultados</a>
+                    <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                    <a href="#ubicacion" class="nav-link">Ubicación</a>
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </div>
+                
+                <!-- Botón menú móvil -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-kuromi-purple transition-colors">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-t border-gray-800">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#hero" class="block nav-link-mobile">Inicio</a>
+                <a href="#servicios" class="block nav-link-mobile">Servicios</a>
+                <a href="#precios" class="block nav-link-mobile">Precios</a>
+                <a href="#testimonios" class="block nav-link-mobile">Opiniones</a>
+                <a href="#antes-despues" class="block nav-link-mobile">Resultados</a>
+                <a href="#sobre-mi" class="block nav-link-mobile">Sobre Mí</a>
+                <a href="#ubicacion" class="block nav-link-mobile">Ubicación</a>
+                <a href="#contacto" class="block nav-link-mobile">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Fondo con gradiente -->
+        <div class="absolute inset-0 bg-gradient-to-br from-black-zinc via-charcoal to-black-zinc"></div>
+        
+        <!-- Elementos decorativos -->
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-kuromi-purple/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-kuromi-purple/3 rounded-full blur-3xl"></div>
+        
+        <!-- Contenido principal -->
+        <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8">
+            <div class="mb-6 inline-flex items-center px-4 py-2 bg-charcoal/80 border border-gray-800 rounded-full">
+                <span class="w-2 h-2 bg-kuromi-purple rounded-full mr-2 animate-pulse"></span>
+                <span class="text-sm text-gray-400">Soporte técnico especializado · Murcia</span>
+            </div>
+            
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
+                <span class="text-white">Jota</span><span class="text-kuromi-purple">Fix</span>
+            </h1>
+            
+            <p class="text-xl sm:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Soporte técnico y optimización de hardware
+            </p>
+
+            <!-- Stats rápidas -->
+            <div class="flex flex-col sm:flex-row gap-8 justify-center mb-10">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-kuromi-purple">+5</div>
+                    <div class="text-xs text-gray-500 mt-1">Años de experiencia</div>
+                </div>
+                <div class="hidden sm:block w-px bg-gray-800"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-kuromi-purple">+200</div>
+                    <div class="text-xs text-gray-500 mt-1">Equipos reparados</div>
+                </div>
+                <div class="hidden sm:block w-px bg-gray-800"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-kuromi-purple">100%</div>
+                    <div class="text-xs text-gray-500 mt-1">Satisfacción garantizada</div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#servicios" class="btn-primary">
+                    <i class="fas fa-wrench mr-2"></i>
+                    Ver Servicios
+                </a>
+                <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20necesito%20información%20sobre%20vuestros%20servicios" target="_blank" class="btn-secondary">
+                    <i class="fab fa-whatsapp mr-2"></i>
+                    Escribir por WhatsApp
+                </a>
+            </div>
+            
+            <!-- Indicador de scroll -->
+            <div class="mt-16 animate-bounce">
+                <a href="#servicios" class="text-gray-500 hover:text-kuromi-purple transition-colors">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-20 bg-black-zinc">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Título de sección -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Nuestros <span class="text-kuromi-purple">Servicios</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Soluciones técnicas especializadas para mantener tu equipo en óptimas condiciones
+                </p>
+            </div>
+            
+            <!-- Grid de servicios -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Servicio 1: Limpieza de PS4 -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-gamepad text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de PS4</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Limpieza interna completa de tu PlayStation 4. Eliminamos polvo, aplicamos nueva pasta térmica y optimizamos el sistema de refrigeración.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de ventiladores
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Cambio de pasta térmica
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de disipador
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20PS4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 2: Limpieza de Mandos PS4 -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-hand-pointer text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de Mandos PS4</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Restauración completa de tus controladores. Limpiamos sticks, botones, superficie y conectores para un funcionamiento óptimo.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Calibración de sticks
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de botones
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Cambio de joystick si es necesario
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20Mandos%20PS4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 3: Limpieza de PS5 -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-dice-d6 text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de PS5</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Mantenimiento especializado para tu PlayStation 5. Limpieza profunda y optimización térmica para evitar el problema de sobrecalentamiento.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de disipador
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Cambio de pasta térmica
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Optimización de airflow
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20PS5" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 4: Limpieza de PC de Escritorio -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-desktop text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de PC Escritorio</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Limpieza completa de torre y componentes internos. Eliminamos toda la acumulación de polvo que afecta el rendimiento y la vida útil.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de ventiladores
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Cambio de pasta térmica CPU/GPU
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Gestión de cables
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20PC%20Escritorio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 5: Limpieza de Portátiles -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-laptop text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de Portátiles</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Mantenimiento especializado para laptops de todas las marcas. Devolvemos el rendimiento y reducimos la temperatura de operación.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de heatpipes
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Cambio de pasta térmica
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Limpieza de ventiladores
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20Port%C3%A1tiles" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 6: Cambio de Pasta Térmica -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-temperature-high text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Cambio de Pasta Térmica</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Aplicamos pasta térmica de alta calidad para mejorar la transferencia de calor entre procesador y disipador. Diferentes calidades disponibles.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Pasta térmica premium
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>CPU y GPU
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Trabajo cuidadoso y sin prisas
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Cambio%20de%20Pasta%20T%C3%A9rmica" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 7: Mantenimiento Preventivo -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-clipboard-check text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Mantenimiento Preventivo</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Programa de mantenimiento regular para tus equipos. Evitamos fallos antes de que ocurran y prolongamos la vida útil de tus dispositivos.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Revisión completa
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Actualización de drivers
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Optimización del sistema
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Mantenimiento%20Preventivo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 8: Cambio de Componentes -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-microchip text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Cambio de Componentes</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Reemplazo de componentes dañados o obsoletos. SSD, RAM, fuentes, ventiladores y más. Trabajamos con repuestos de calidad.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>SSD y HDD
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Memoria RAM
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Fuentes y ventiladores
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Cambio%20de%20Componentes" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Servicio 9: Montaje de PCs -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-tools text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Montaje de PCs</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Construimos tu PC a medida según tus necesidades y presupuesto. Gaming, trabajo, edición de vídeo... Te asesoramos y montamos.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Asesoramiento de componentes
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Montaje y cable management
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Pruebas de estrés
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Montaje%20de%20PCs" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NUEVA SECCIÓN: PRECIOS ===== -->
+    <section id="precios" class="py-20 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Pre<span class="text-kuromi-purple">cios</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Precios orientativos. El precio final puede variar según el estado del equipo. Consúltanos sin compromiso y te damos presupuesto exacto.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+
+                <!-- Precio PS4 -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gamepad text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza PS4</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">15€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Limpieza completa + pasta térmica incluida</p>
+                </div>
+
+                <!-- Precio PS5 -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-dice-d6 text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza PS5</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">20€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Limpieza completa + pasta térmica incluida</p>
+                </div>
+
+                <!-- Precio Mando -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-hand-pointer text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza Mando PS4</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">10€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Limpieza + calibración de sticks</p>
+                </div>
+
+                <!-- Precio Portátil -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-laptop text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza Portátil</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">15€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Limpieza completa + nueva pasta térmica</p>
+                </div>
+
+                <!-- Precio PC Escritorio -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-desktop text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza PC Escritorio</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">15€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Torre completa + componentes internos</p>
+                </div>
+
+                <!-- Precio Montaje PC -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-3 right-3 bg-kuromi-purple/20 text-kuromi-purple text-xs px-2 py-1 rounded-full border border-kuromi-purple/30">
+                        Popular
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-tools text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Montaje de PC</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">30€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Solo mano de obra · Componentes aparte</p>
+                </div>
+
+                <!-- Precio Mando PS5 -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-hand-pointer text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza Mando PS5</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">10€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Limpieza + calibración de sticks</p>
+                </div>
+
+                <!-- Precio Instalación S.O. -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-compact-disc text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Instalación S.O.</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">20€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Instalación completa del sistema operativo</p>
+                </div>
+
+                <!-- Precio Optimización -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gauge-high text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Optimización</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">10€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Optimización del sistema y rendimiento</p>
+                </div>
+
+                <!-- Precio Licencia Office Original -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-word text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Licencia Office Original</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">100€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Licencia original de Microsoft Office</p>
+                </div>
+
+                <!-- Precio Activación Office 6 meses -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-word text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Activación Office 6 Meses</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">20€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Activación temporal de Microsoft Office</p>
+                </div>
+
+            </div>
+
+            <!-- Nota pie de precios -->
+            <div class="bg-black-zinc border border-gray-800 rounded-xl p-5 flex items-start gap-4 max-w-2xl mx-auto">
+                <i class="fas fa-info-circle text-kuromi-purple mt-0.5 flex-shrink-0"></i>
+                <p class="text-gray-400 text-sm">
+                    Los precios son orientativos y pueden variar según el estado del equipo y las piezas necesarias. Te daremos un <strong class="text-white">presupuesto exacto y sin compromiso</strong> antes de empezar.
+                    <a href="https://wa.me/34685537310?text=Hola%2C%20quisiera%20un%20presupuesto%20para" target="_blank" class="text-kuromi-purple hover:text-white ml-1 transition-colors">Pide presupuesto →</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NUEVA SECCIÓN: TESTIMONIOS ===== -->
+    <section id="testimonios" class="py-20 bg-black-zinc">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Lo que dicen <span class="text-kuromi-purple">los clientes</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    La confianza de quienes ya han pasado por aquí es la mejor carta de presentación
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Testimonio 1 -->
+                <div class="testimonial-card bg-charcoal border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/40 transition-all duration-300">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                        "Llevé mi PS4 que hacía un ruido horrible y la devolvió como nueva. Sin ruido, mucho más fresca y por un precio muy razonable. Rápido y limpio el trabajo."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-kuromi-purple/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-kuromi-purple font-bold text-sm">M</span>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-medium">Miguel A.</p>
+                            <p class="text-gray-600 text-xs">Villanueva del Río Segura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="testimonial-card bg-charcoal border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/40 transition-all duration-300">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                        "Me montó el PC desde cero, me asesoró bien sin intentar meterme componentes más caros de lo que necesitaba. El cable management quedó perfecto."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-kuromi-purple/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-kuromi-purple font-bold text-sm">S</span>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-medium">Sergio R.</p>
+                            <p class="text-gray-600 text-xs">Archena</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="testimonial-card bg-charcoal border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/40 transition-all duration-300">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                        "El portátil iba a 90 grados en cuanto ponía un vídeo. Después de la limpieza ronda los 60. Una diferencia brutal. Super recomendable y muy atento."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-kuromi-purple/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-kuromi-purple font-bold text-sm">L</span>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-medium">Laura M.</p>
+                            <p class="text-gray-600 text-xs">Molina de Segura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 4 -->
+                <div class="testimonial-card bg-charcoal border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/40 transition-all duration-300">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                        "Me cambió el joystick del mando que tenía drift y de paso lo limpió por dentro. En el mismo día y por un precio que no me esperaba. Muy recomendable."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-kuromi-purple/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-kuromi-purple font-bold text-sm">A</span>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-medium">Adrián C.</p>
+                            <p class="text-gray-600 text-xs">Ceutí</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 5 -->
+                <div class="testimonial-card bg-charcoal border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/40 transition-all duration-300">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                        "Vine con el PC petado de polvo que se apagaba solo. Lo limpió, le cambió la pasta y hasta me gestionó los cables mejor que antes. Lo tiene claro."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-kuromi-purple/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-kuromi-purple font-bold text-sm">R</span>
+                        </div>
+                        <div>
+                            <p class="text-white text-sm font-medium">Rubén T.</p>
+                            <p class="text-gray-600 text-xs">Lorquí</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Testimonio -->
+                <div class="bg-kuromi-purple/5 border border-kuromi-purple/20 rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                    <div class="w-12 h-12 bg-kuromi-purple/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-whatsapp text-2xl text-kuromi-purple"></i>
+                    </div>
+                    <p class="text-white font-semibold mb-2">¿Ya has probado Jota Fix?</p>
+                    <p class="text-gray-500 text-sm mb-4">Tu opinión ayuda a otros clientes a decidir</p>
+                    <a href="https://wa.me/34685537310?text=Hola%2C%20quiero%20dejar%20mi%20opinión%20sobre%20el%20servicio"
+                       target="_blank"
+                       class="inline-flex items-center gap-2 text-sm text-kuromi-purple hover:text-white border border-kuromi-purple/40 hover:border-kuromi-purple px-4 py-2 rounded-lg transition-all duration-300">
+                        <i class="fab fa-whatsapp"></i>
+                        Dejar opinión
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NUEVA SECCIÓN: ANTES / DESPUÉS ===== -->
+    <section id="antes-despues" class="py-20 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Antes <span class="text-kuromi-purple">&</span> Después
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Arrastra el slider para ver la diferencia. Así quedan los equipos antes y después de pasar por nuestras manos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                <!-- Slider 1: PS4 -->
+                <div>
+                    <p class="text-gray-400 text-sm mb-3 text-center"><i class="fas fa-gamepad text-kuromi-purple mr-2"></i>PlayStation 4 — Limpieza completa</p>
+                    <div class="before-after-slider rounded-xl overflow-hidden border border-gray-800" data-slider>
+                        <!-- ANTES (fondo) -->
+                        <div class="ba-before">
+                            <!-- Placeholder visual ANTES: sucio -->
+                            <div class="ba-placeholder ba-before-visual">
+                                <div class="ba-dust-overlay"></div>
+                                <div class="ba-device-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="ba-temp-badge ba-temp-hot">92°C <i class="fas fa-thermometer-full"></i></div>
+                                <span class="ba-label ba-label-before">ANTES</span>
+                            </div>
+                        </div>
+                        <!-- DESPUÉS (encima, recortado) -->
+                        <div class="ba-after" style="width: 50%">
+                            <div class="ba-placeholder ba-after-visual">
+                                <div class="ba-device-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="ba-temp-badge ba-temp-cool">58°C <i class="fas fa-thermometer-half"></i></div>
+                                <span class="ba-label ba-label-after">DESPUÉS</span>
+                            </div>
+                        </div>
+                        <!-- Handle -->
+                        <div class="ba-handle" style="left: 50%">
+                            <div class="ba-handle-line"></div>
+                            <div class="ba-handle-btn">
+                                <i class="fas fa-chevron-left"></i>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                            <div class="ba-handle-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider 2: Portátil -->
+                <div>
+                    <p class="text-gray-400 text-sm mb-3 text-center"><i class="fas fa-laptop text-kuromi-purple mr-2"></i>Portátil — Limpieza + pasta térmica</p>
+                    <div class="before-after-slider rounded-xl overflow-hidden border border-gray-800" data-slider>
+                        <div class="ba-before">
+                            <div class="ba-placeholder ba-before-visual">
+                                <div class="ba-dust-overlay"></div>
+                                <div class="ba-device-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="ba-temp-badge ba-temp-hot">87°C <i class="fas fa-thermometer-full"></i></div>
+                                <span class="ba-label ba-label-before">ANTES</span>
+                            </div>
+                        </div>
+                        <div class="ba-after" style="width: 50%">
+                            <div class="ba-placeholder ba-after-visual">
+                                <div class="ba-device-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="ba-temp-badge ba-temp-cool">55°C <i class="fas fa-thermometer-half"></i></div>
+                                <span class="ba-label ba-label-after">DESPUÉS</span>
+                            </div>
+                        </div>
+                        <div class="ba-handle" style="left: 50%">
+                            <div class="ba-handle-line"></div>
+                            <div class="ba-handle-btn">
+                                <i class="fas fa-chevron-left"></i>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                            <div class="ba-handle-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Nota sobre fotos reales -->
+            <div class="text-center mt-10">
+                <p class="text-gray-600 text-sm">
+                    <i class="fas fa-camera text-kuromi-purple mr-2"></i>
+                    Fotos reales de trabajos próximamente · Síguenos en Instagram para ver más resultados
+                </p>
+                <a href="#" target="_blank" class="inline-flex items-center gap-2 mt-3 text-sm text-kuromi-purple hover:text-white transition-colors">
+                    <i class="fab fa-instagram"></i> @jotafix_murcia
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Mí Section -->
+    <section id="sobre-mi" class="py-20 bg-black-zinc">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Imagen/Avatar -->
+                <div class="relative">
+                    <div class="aspect-square max-w-md mx-auto lg:max-w-none">
+                        <div class="w-full h-full bg-gradient-to-br from-kuromi-purple/20 to-transparent rounded-2xl flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="w-32 h-32 mx-auto mb-6 bg-charcoal rounded-full flex items-center justify-center border-2 border-kuromi-purple">
+                                    <i class="fas fa-user text-5xl text-kuromi-purple"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elemento decorativo -->
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-kuromi-purple/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-certificate text-2xl text-kuromi-purple"></i>
+                    </div>
+                </div>
+                
+                <!-- Contenido -->
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                        Sobre <span class="text-kuromi-purple">Mí</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-400">
+                        <p class="text-lg">
+                            ¡Hola! Soy <span class="text-white font-semibold">Joaquín</span>, fundador de Jota Fix.
+                        </p>
+                        
+                        <p>
+                            Soy Técnico en Sistemas Microinformáticos y Redes (Grado Medio SMR), con formación en montaje y mantenimiento de hardware, configuración de servidores y redes. He realizado prácticas como técnico de soporte y como reparador de equipos informáticos y móviles, lo que me ha dado experiencia real resolviendo problemas del día a día.
+                        </p>
+                        
+                        <p>
+                            Mi sello es la meticulosidad: soy una persona ordenada, detallista y con gran capacidad resolutiva, y no dejo de formarme — cuento con certificaciones en ciberseguridad, hacking ético y desarrollo web, entre otras. En Jota Fix pongo todo mi cuidado en cada equipo que pasa por mis manos, como si fuera el mío.
+                        </p>
+                        
+                        <!-- Habilidades -->
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-kuromi-purple"></i>
+                                <span class="text-gray-300">Reparación de hardware</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-kuromi-purple"></i>
+                                <span class="text-gray-300">Mantenimiento y optimización</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-kuromi-purple"></i>
+                                <span class="text-gray-300">Redes y servidores</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-kuromi-purple"></i>
+                                <span class="text-gray-300">Nociones de ciberseguridad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicación Section -->
+    <section id="ubicacion" class="py-20 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Dónde <span class="text-kuromi-purple">Estamos</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Nos encontramos en Villanueva del Río Segura, Murcia. También ofrecemos servicio a domicilio en la comarca del Río Segura.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Info lateral -->
+                <div class="space-y-5">
+                    <div class="bg-black-zinc rounded-xl border border-gray-800 p-6 flex items-start gap-4">
+                        <div class="w-12 h-12 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Dirección</p>
+                            <p class="text-gray-400 text-sm mt-1">Villanueva del Río Segura<br>Murcia, España</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-black-zinc rounded-xl border border-gray-800 p-6 flex items-start gap-4">
+                        <div class="w-12 h-12 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-clock text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Horario</p>
+                            <p class="text-gray-400 text-sm mt-1">Lun – Sáb<br>9:00 – 19:00</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-black-zinc rounded-xl border border-gray-800 p-6 flex items-start gap-4">
+                        <div class="w-12 h-12 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-car text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-semibold">Servicio a domicilio</p>
+                            <p class="text-gray-400 text-sm mt-1">Disponible en la comarca del Río Segura. Consulta disponibilidad.</p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Villanueva+del+Rio+Segura,Murcia,Spain" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="btn-primary w-full justify-center">
+                        <i class="fas fa-directions mr-2"></i>
+                        Cómo llegar
+                    </a>
+                </div>
+
+                <!-- Mapa interactivo -->
+                <div class="lg:col-span-2">
+                    <div class="rounded-2xl overflow-hidden border border-gray-800 shadow-2xl" style="height: 420px;">
+                        <div id="map" style="height: 100%; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="py-20 bg-black-zinc">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Título de sección -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    Cont<span class="text-kuromi-purple">acto</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    ¿Necesitas ayuda con tu equipo? Contáctanos y te responderemos a la brevedad
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Formulario de contacto -->
+                <div class="bg-charcoal rounded-xl border border-gray-800 p-8">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Nombre -->
+                            <div>
+                                <label for="nombre" class="block text-sm font-medium text-gray-300 mb-2">Nombre</label>
+                                <input 
+                                    type="text" id="nombre" name="nombre" required
+                                    class="w-full px-4 py-3 bg-black-zinc border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-kuromi-purple focus:ring-1 focus:ring-kuromi-purple outline-none transition-colors"
+                                    placeholder="Tu nombre"
+                                >
+                            </div>
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                <input 
+                                    type="email" id="email" name="email" required
+                                    class="w-full px-4 py-3 bg-black-zinc border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-kuromi-purple focus:ring-1 focus:ring-kuromi-purple outline-none transition-colors"
+                                    placeholder="tu@email.com"
+                                >
+                            </div>
+                        </div>
+                        
+                        <!-- Teléfono -->
+                        <div>
+                            <label for="telefono" class="block text-sm font-medium text-gray-300 mb-2">Teléfono (opcional)</label>
+                            <input 
+                                type="tel" id="telefono" name="telefono"
+                                class="w-full px-4 py-3 bg-black-zinc border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-kuromi-purple focus:ring-1 focus:ring-kuromi-purple outline-none transition-colors"
+                                placeholder="+34 600 000 000"
+                            >
+                        </div>
+                        
+                        <!-- Servicio de interés -->
+                        <div>
+                            <label for="servicio" class="block text-sm font-medium text-gray-300 mb-2">Servicio de interés</label>
+                            <select 
+                                id="servicio" name="servicio"
+                                class="w-full px-4 py-3 bg-black-zinc border border-gray-700 rounded-lg text-white focus:border-kuromi-purple focus:ring-1 focus:ring-kuromi-purple outline-none transition-colors"
+                            >
+                                <option value="">Selecciona un servicio</option>
+                                <option value="ps4">Limpieza PS4</option>
+                                <option value="ps5">Limpieza PS5</option>
+                                <option value="mando">Limpieza Mando</option>
+                                <option value="portatil">Limpieza Portátil</option>
+                                <option value="pc">Limpieza PC Escritorio</option>
+                                <option value="pasta">Cambio de Pasta Térmica</option>
+                                <option value="componentes">Cambio de Componentes</option>
+                                <option value="montaje">Montaje de PC</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Mensaje -->
+                        <div>
+                            <label for="mensaje" class="block text-sm font-medium text-gray-300 mb-2">Mensaje</label>
+                            <textarea 
+                                id="mensaje" name="mensaje" rows="5" required
+                                class="w-full px-4 py-3 bg-black-zinc border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-kuromi-purple focus:ring-1 focus:ring-kuromi-purple outline-none transition-colors resize-none"
+                                placeholder="Describe tu problema o necesidad..."
+                            ></textarea>
+                        </div>
+                        
+                        <!-- Botón de envío -->
+                        <button type="submit" class="w-full btn-primary py-4 text-lg">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Enviar por WhatsApp
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Información de contacto -->
+                <div class="space-y-8">
+                    <!-- Información de contacto -->
+                    <div class="bg-charcoal rounded-xl border border-gray-800 p-8">
+                        <h3 class="text-xl font-semibold text-white mb-6">
+                            <i class="fas fa-info-circle text-kuromi-purple mr-2"></i>
+                            Información de Contacto
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-kuromi-purple"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">Ubicación</p>
+                                    <p class="text-white">Villanueva del Río Segura, Murcia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-kuromi-purple"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">Horario de atención</p>
+                                    <p class="text-white">Lun - Sáb: 9:00 AM - 7:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Redes sociales -->
+                    <div class="bg-charcoal rounded-xl border border-gray-800 p-8">
+                        <h3 class="text-xl font-semibold text-white mb-6">
+                            <i class="fas fa-share-alt text-kuromi-purple mr-2"></i>
+                            Redes Sociales
+                        </h3>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://wa.me/34685537310" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                <i class="fab fa-whatsapp text-2xl"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                <i class="fab fa-facebook-f text-2xl"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                <i class="fab fa-instagram text-2xl"></i>
+                                <span>Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- FAQ rápido -->
+                    <div class="bg-charcoal rounded-xl border border-gray-800 p-8">
+                        <h3 class="text-xl font-semibold text-white mb-6">
+                            <i class="fas fa-question-circle text-kuromi-purple mr-2"></i>
+                            Preguntas Frecuentes
+                        </h3>
+                        <div class="space-y-3" id="faq-list">
+                            <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                                <button class="faq-btn w-full text-left px-4 py-3 text-gray-300 hover:text-white flex justify-between items-center transition-colors">
+                                    <span class="text-sm font-medium">¿Cuánto tarda una reparación?</span>
+                                    <i class="fas fa-chevron-down text-kuromi-purple text-xs transition-transform"></i>
+                                </button>
+                                <div class="faq-body hidden px-4 pb-3 text-gray-500 text-sm">
+                                    Depende del servicio. Una limpieza suele estar lista en el mismo día. Reparaciones más complejas pueden tardar 24–48h.
+                                </div>
+                            </div>
+                            <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                                <button class="faq-btn w-full text-left px-4 py-3 text-gray-300 hover:text-white flex justify-between items-center transition-colors">
+                                    <span class="text-sm font-medium">¿Ofrecéis garantía?</span>
+                                    <i class="fas fa-chevron-down text-kuromi-purple text-xs transition-transform"></i>
+                                </button>
+                                <div class="faq-body hidden px-4 pb-3 text-gray-500 text-sm">
+                                    Hacemos el trabajo con cuidado y si algo no va bien justo después de la intervención, lo miramos sin problema. No ofrecemos garantía formal por escrito, pero no te vamos a dejar tirado.
+                                </div>
+                            </div>
+                            <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                                <button class="faq-btn w-full text-left px-4 py-3 text-gray-300 hover:text-white flex justify-between items-center transition-colors">
+                                    <span class="text-sm font-medium">¿Hacéis servicio a domicilio?</span>
+                                    <i class="fas fa-chevron-down text-kuromi-purple text-xs transition-transform"></i>
+                                </button>
+                                <div class="faq-body hidden px-4 pb-3 text-gray-500 text-sm">
+                                    Sí, en la comarca del Río Segura. Contáctanos para confirmar disponibilidad en tu zona.
+                                </div>
+                            </div>
+                            <div class="faq-item border border-gray-800 rounded-lg overflow-hidden">
+                                <button class="faq-btn w-full text-left px-4 py-3 text-gray-300 hover:text-white flex justify-between items-center transition-colors">
+                                    <span class="text-sm font-medium">¿Los precios incluyen las piezas?</span>
+                                    <i class="fas fa-chevron-down text-kuromi-purple text-xs transition-transform"></i>
+                                </button>
+                                <div class="faq-body hidden px-4 pb-3 text-gray-500 text-sm">
+                                    Los precios de limpieza incluyen la pasta térmica. Si hay que cambiar piezas adicionales (joysticks, ventiladores, etc.) se presupuestan aparte antes de proceder.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl font-bold text-kuromi-purple">Jota<span class="text-white">Fix</span></span>
+                </div>
+                <p class="text-gray-500 text-sm">© 2026 Jota Fix. Todos los derechos reservados.</p>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-kuromi-purple transition-colors text-sm">Privacidad</a>
+                    <a href="#" class="text-gray-500 hover:text-kuromi-purple transition-colors text-sm">Términos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== BOTÓN FLOTANTE DE WHATSAPP ===== -->
+    <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20necesito%20información%20sobre%20vuestros%20servicios"
+       target="_blank"
+       rel="noopener noreferrer"
+       id="whatsapp-float"
+       aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="wa-tooltip">¡Escríbenos!</span>
+    </a>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Script principal -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
