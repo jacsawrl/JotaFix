@@ -40,10 +40,24 @@
     <!-- Leaflet CSS (mapa interactivo) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=4">
 </head>
 <body class="bg-black-zinc text-gray-300 font-sans antialiased">
+    <script>
+        // Aplica el tema guardado antes de pintar, para evitar parpadeos
+        if (localStorage.getItem('jotafix-theme') === 'light') {
+            document.body.classList.add('light-mode');
+        }
+    </script>
 
     <!-- Pantalla de carga -->
     <div id="loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black-zinc">
@@ -76,11 +90,19 @@
                     <a href="#ubicacion" class="nav-link">Ubicación</a>
                     <a href="#contacto" class="nav-link">Contacto</a>
                 </div>
-                
-                <!-- Botón menú móvil -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-kuromi-purple transition-colors">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
+
+                <div class="flex items-center gap-3">
+                    <!-- Cambio de tema claro/oscuro -->
+                    <button id="theme-toggle" aria-label="Cambiar tema claro/oscuro" class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-700 text-gray-300 hover:text-kuromi-purple hover:border-kuromi-purple transition-colors">
+                        <i class="fas fa-sun text-sm theme-icon-light hidden"></i>
+                        <i class="fas fa-moon text-sm theme-icon-dark"></i>
+                    </button>
+
+                    <!-- Botón menú móvil -->
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-kuromi-purple transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -102,7 +124,7 @@
     <!-- Hero Section -->
     <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
         <!-- Fondo con gradiente -->
-        <div class="absolute inset-0 bg-gradient-to-br from-black-zinc via-charcoal to-black-zinc"></div>
+        <div class="hero-bg-gradient absolute inset-0 bg-gradient-to-br from-black-zinc via-charcoal to-black-zinc"></div>
         
         <!-- Elementos decorativos -->
         <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-kuromi-purple/5 rounded-full blur-3xl"></div>
@@ -126,12 +148,12 @@
             <!-- Stats rápidas -->
             <div class="flex flex-col sm:flex-row gap-8 justify-center mb-10">
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-kuromi-purple">+5</div>
-                    <div class="text-xs text-gray-500 mt-1">Años de experiencia</div>
+                    <div class="text-3xl font-bold text-kuromi-purple">+1</div>
+                    <div class="text-xs text-gray-500 mt-1">Año de experiencia</div>
                 </div>
                 <div class="hidden sm:block w-px bg-gray-800"></div>
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-kuromi-purple">+200</div>
+                    <div class="text-3xl font-bold text-kuromi-purple">+20</div>
                     <div class="text-xs text-gray-500 mt-1">Equipos reparados</div>
                 </div>
                 <div class="hidden sm:block w-px bg-gray-800"></div>
@@ -227,6 +249,34 @@
                             </li>
                         </ul>
                         <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20Mandos%20PS4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
+                            <span>Solicitar</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Servicio: Limpieza de Periféricos -->
+                <div class="service-card group">
+                    <div class="relative overflow-hidden rounded-xl bg-charcoal border border-gray-800 p-6 h-full">
+                        <div class="w-14 h-14 bg-kuromi-purple/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-kuromi-purple/20 transition-colors">
+                            <i class="fas fa-keyboard text-2xl text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Limpieza de Periféricos</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Teclados, ratones, auriculares y otros periféricos como nuevos. Eliminamos polvo y suciedad acumulada entre teclas y rejillas.
+                        </p>
+                        <ul class="space-y-2 mb-5">
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Desmontaje y limpieza a fondo
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Teclados, ratones y auriculares
+                            </li>
+                            <li class="flex items-center text-gray-500 text-sm">
+                                <i class="fas fa-check text-kuromi-purple mr-2"></i>Revisión de conectores y cables
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20quiero%20solicitar%20el%20servicio%20de%20Limpieza%20de%20Perif%C3%A9ricos" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-kuromi-purple hover:text-white transition-colors text-sm">
                             <span>Solicitar</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                         </a>
@@ -490,6 +540,21 @@
                         <span class="text-3xl font-bold text-kuromi-purple">10€</span>
                     </div>
                     <p class="text-gray-500 text-sm">Limpieza + calibración de sticks</p>
+                </div>
+
+                <!-- Precio Periféricos -->
+                <div class="price-card bg-black-zinc border border-gray-800 rounded-xl p-6 hover:border-kuromi-purple/50 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-kuromi-purple/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-keyboard text-kuromi-purple"></i>
+                        </div>
+                        <h3 class="text-white font-semibold">Limpieza de Periféricos</h3>
+                    </div>
+                    <div class="flex items-baseline gap-1 mb-3">
+                        <span class="text-gray-500 text-sm">desde</span>
+                        <span class="text-3xl font-bold text-kuromi-purple">5€</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">Teclados, ratones y auriculares</p>
                 </div>
 
                 <!-- Precio Portátil -->
@@ -794,27 +859,15 @@
                 <div>
                     <p class="text-gray-400 text-sm mb-3 text-center"><i class="fas fa-gamepad text-kuromi-purple mr-2"></i>PlayStation 4 — Limpieza completa</p>
                     <div class="before-after-slider rounded-xl overflow-hidden border border-gray-800" data-slider>
-                        <!-- ANTES (fondo) -->
-                        <div class="ba-before">
-                            <!-- Placeholder visual ANTES: sucio -->
-                            <div class="ba-placeholder ba-before-visual">
-                                <div class="ba-dust-overlay"></div>
-                                <div class="ba-device-icon">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                                <div class="ba-temp-badge ba-temp-hot">92°C <i class="fas fa-thermometer-full"></i></div>
-                                <span class="ba-label ba-label-before">ANTES</span>
-                            </div>
+                        <!-- DESPUÉS (fondo, tamaño completo siempre) -->
+                        <div class="ba-layer ba-after">
+                            <img src="assets/img/Ps4Despues.jpeg" alt="PS4 después de la limpieza, sin polvo">
+                            <span class="ba-label ba-label-after">DESPUÉS</span>
                         </div>
-                        <!-- DESPUÉS (encima, recortado) -->
-                        <div class="ba-after" style="width: 50%">
-                            <div class="ba-placeholder ba-after-visual">
-                                <div class="ba-device-icon">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                                <div class="ba-temp-badge ba-temp-cool">58°C <i class="fas fa-thermometer-half"></i></div>
-                                <span class="ba-label ba-label-after">DESPUÉS</span>
-                            </div>
+                        <!-- ANTES (capa superior, recortada con clip-path) -->
+                        <div class="ba-layer ba-before" style="clip-path: inset(0 50% 0 0)">
+                            <img src="assets/img/Ps4Antes.jpeg" alt="PS4 antes de la limpieza, llena de polvo">
+                            <span class="ba-label ba-label-before">ANTES</span>
                         </div>
                         <!-- Handle -->
                         <div class="ba-handle" style="left: 50%">
@@ -828,28 +881,17 @@
                     </div>
                 </div>
 
-                <!-- Slider 2: Portátil -->
+                <!-- Slider 2: Teclado -->
                 <div>
-                    <p class="text-gray-400 text-sm mb-3 text-center"><i class="fas fa-laptop text-kuromi-purple mr-2"></i>Portátil — Limpieza + pasta térmica</p>
+                    <p class="text-gray-400 text-sm mb-3 text-center"><i class="fas fa-keyboard text-kuromi-purple mr-2"></i>Teclado — Limpieza de periféricos</p>
                     <div class="before-after-slider rounded-xl overflow-hidden border border-gray-800" data-slider>
-                        <div class="ba-before">
-                            <div class="ba-placeholder ba-before-visual">
-                                <div class="ba-dust-overlay"></div>
-                                <div class="ba-device-icon">
-                                    <i class="fas fa-laptop"></i>
-                                </div>
-                                <div class="ba-temp-badge ba-temp-hot">87°C <i class="fas fa-thermometer-full"></i></div>
-                                <span class="ba-label ba-label-before">ANTES</span>
-                            </div>
+                        <div class="ba-layer ba-after">
+                            <img src="assets/img/TecladoDespues.jpeg" alt="Teclado después de la limpieza, sin suciedad">
+                            <span class="ba-label ba-label-after">DESPUÉS</span>
                         </div>
-                        <div class="ba-after" style="width: 50%">
-                            <div class="ba-placeholder ba-after-visual">
-                                <div class="ba-device-icon">
-                                    <i class="fas fa-laptop"></i>
-                                </div>
-                                <div class="ba-temp-badge ba-temp-cool">55°C <i class="fas fa-thermometer-half"></i></div>
-                                <span class="ba-label ba-label-after">DESPUÉS</span>
-                            </div>
+                        <div class="ba-layer ba-before" style="clip-path: inset(0 50% 0 0)">
+                            <img src="assets/img/TecladoAntes.jpeg" alt="Teclado antes de la limpieza, con suciedad entre teclas">
+                            <span class="ba-label ba-label-before">ANTES</span>
                         </div>
                         <div class="ba-handle" style="left: 50%">
                             <div class="ba-handle-line"></div>
@@ -868,9 +910,9 @@
             <div class="text-center mt-10">
                 <p class="text-gray-600 text-sm">
                     <i class="fas fa-camera text-kuromi-purple mr-2"></i>
-                    Fotos reales de trabajos próximamente · Síguenos en Instagram para ver más resultados
+                    Más fotos de trabajos reales próximamente · Síguenos en Instagram para ver más resultados
                 </p>
-                <a href="#" target="_blank" class="inline-flex items-center gap-2 mt-3 text-sm text-kuromi-purple hover:text-white transition-colors">
+                <a href="https://www.instagram.com/jotafix_murcia/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-sm text-kuromi-purple hover:text-white transition-colors">
                     <i class="fab fa-instagram"></i> @jotafix_murcia
                 </a>
             </div>
@@ -885,10 +927,8 @@
                 <div class="relative">
                     <div class="aspect-square max-w-md mx-auto lg:max-w-none">
                         <div class="w-full h-full bg-gradient-to-br from-kuromi-purple/20 to-transparent rounded-2xl flex items-center justify-center">
-                            <div class="text-center">
-                                <div class="w-32 h-32 mx-auto mb-6 bg-charcoal rounded-full flex items-center justify-center border-2 border-kuromi-purple">
-                                    <i class="fas fa-user text-5xl text-kuromi-purple"></i>
-                                </div>
+                            <div class="w-44 h-44 sm:w-52 sm:h-52 rounded-full overflow-hidden border-4 border-kuromi-purple shadow-[0_0_40px_rgba(168,85,247,0.35)]">
+                                <img src="assets/img/avatar-joaquin.png" alt="Joaquín, fundador de Jota Fix" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
@@ -940,6 +980,101 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Certificaciones y Formación -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-semibold text-white mb-2 text-center sm:text-left">
+                    Certificaciones <span class="text-kuromi-purple">y Formación</span>
+                </h3>
+                <p class="text-gray-500 text-sm mb-8 text-center sm:text-left">
+                    Formación acreditada que respalda el trabajo que hago en cada equipo
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                    <!-- Cert: SMR -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-graduation-cap text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">FP Medio: Sistemas Microinformáticos y Redes (SMR)</h4>
+                            <p class="text-gray-500 text-xs mt-1">Administración de sistemas, redes y soporte técnico</p>
+                        </div>
+                    </div>
+
+                    <!-- Cert: Redes Sociales -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-shield-halved text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">Internet y Ciberseguridad (Redes Sociales)</h4>
+                            <p class="text-gray-500 text-xs mt-1 mb-2">Protección de datos y prevención de amenazas digitales</p>
+                            <a href="https://jacsawrl.github.io/PORTFOLIO-JOA/previews/certificadoredessociales.png" target="_blank" rel="noopener noreferrer" class="text-kuromi-purple hover:text-white text-xs inline-flex items-center gap-1 transition-colors">
+                                Ver certificado <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cert: Ciberataques e ingeniería social -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-user-secret text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">Ciberataques Comunes e Ingeniería Social</h4>
+                            <p class="text-gray-500 text-xs mt-1 mb-2">Identificación de malware, phishing y vectores de ataque · Formacarm</p>
+                            <a href="https://jacsawrl.github.io/PORTFOLIO-JOA/previews/certificado_ciberseguridad.png" target="_blank" rel="noopener noreferrer" class="text-kuromi-purple hover:text-white text-xs inline-flex items-center gap-1 transition-colors">
+                                Ver certificado <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cert: HTML/CSS/JS -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-code text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">HTML5, CSS3 y JavaScript — Nivel 1</h4>
+                            <p class="text-gray-500 text-xs mt-1 mb-2">Desarrollo web y manipulación del DOM · Formacarm</p>
+                            <a href="https://jacsawrl.github.io/PORTFOLIO-JOA/previews/HTML-CSS-JS-cert.png" target="_blank" rel="noopener noreferrer" class="text-kuromi-purple hover:text-white text-xs inline-flex items-center gap-1 transition-colors">
+                                Ver certificado <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cert: IA -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">IA: De 0 a Agentes</h4>
+                            <p class="text-gray-500 text-xs mt-1 mb-2">Fundamentos de IA y agentes autónomos · BIG School</p>
+                            <a href="https://jacsawrl.github.io/PORTFOLIO-JOA/previews/cert_ia_agentes.png" target="_blank" rel="noopener noreferrer" class="text-kuromi-purple hover:text-white text-xs inline-flex items-center gap-1 transition-colors">
+                                Ver certificado <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cert: Hacking Ético -->
+                    <div class="cert-card bg-charcoal border border-gray-800 rounded-xl p-5 flex items-start gap-4">
+                        <div class="w-11 h-11 bg-kuromi-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-lock text-kuromi-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium text-sm leading-snug">Ciberseguridad y Hacking Ético</h4>
+                            <p class="text-gray-500 text-xs mt-1 mb-2">Detección de vulnerabilidades y defensa digital · BIG School</p>
+                            <a href="https://jacsawrl.github.io/PORTFOLIO-JOA/previews/cert_ciberseguridad_hacking.png" target="_blank" rel="noopener noreferrer" class="text-kuromi-purple hover:text-white text-xs inline-flex items-center gap-1 transition-colors">
+                                Ver certificado <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </section>
 
@@ -974,7 +1109,7 @@
                         </div>
                         <div>
                             <p class="text-white font-semibold">Horario</p>
-                            <p class="text-gray-400 text-sm mt-1">Lun – Sáb<br>9:00 – 19:00</p>
+                            <p class="text-gray-400 text-sm mt-1">Principalmente fines de semana<br>Entre semana, según disponibilidad — pregúntanos</p>
                         </div>
                     </div>
 
@@ -1065,6 +1200,7 @@
                                 <option value="ps4">Limpieza PS4</option>
                                 <option value="ps5">Limpieza PS5</option>
                                 <option value="mando">Limpieza Mando</option>
+                                <option value="perifericos">Limpieza de Periféricos</option>
                                 <option value="portatil">Limpieza Portátil</option>
                                 <option value="pc">Limpieza PC Escritorio</option>
                                 <option value="pasta">Cambio de Pasta Térmica</option>
@@ -1118,7 +1254,7 @@
                                 </div>
                                 <div>
                                     <p class="text-gray-500 text-sm">Horario de atención</p>
-                                    <p class="text-white">Lun - Sáb: 9:00 AM - 7:00 PM</p>
+                                    <p class="text-white">Principalmente fines de semana. Otros días, según disponibilidad — pregúntanos</p>
                                 </div>
                             </div>
                         </div>
@@ -1136,11 +1272,7 @@
                                 <i class="fab fa-whatsapp text-2xl"></i>
                                 <span>WhatsApp</span>
                             </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn">
-                                <i class="fab fa-facebook-f text-2xl"></i>
-                                <span>Facebook</span>
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-btn">
+                            <a href="https://www.instagram.com/jotafix_murcia/" target="_blank" rel="noopener noreferrer" class="social-btn">
                                 <i class="fab fa-instagram text-2xl"></i>
                                 <span>Instagram</span>
                             </a>
@@ -1206,12 +1338,16 @@
                 </div>
                 <p class="text-gray-500 text-sm">© 2026 Jota Fix. Todos los derechos reservados.</p>
                 <div class="flex items-center space-x-6">
-                    <a href="#" class="text-gray-500 hover:text-kuromi-purple transition-colors text-sm">Privacidad</a>
-                    <a href="#" class="text-gray-500 hover:text-kuromi-purple transition-colors text-sm">Términos</a>
+                    <a href="privacidad.html" class="text-gray-500 hover:text-kuromi-purple transition-colors text-sm">Privacidad</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- ===== BOTÓN VOLVER ARRIBA ===== -->
+    <button id="back-to-top" aria-label="Volver arriba" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <!-- ===== BOTÓN FLOTANTE DE WHATSAPP ===== -->
     <a href="https://wa.me/34685537310?text=Hola%20Jota%20Fix%2C%20necesito%20información%20sobre%20vuestros%20servicios"
@@ -1227,6 +1363,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- Script principal -->
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=3"></script>
 </body>
 </html>

@@ -10,6 +10,82 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => loader.classList.add('hidden-loader'), 600);
     }
 
+    // ============================================================
+    // MODO CLARO / OSCURO — con transición de barrido circular
+    // ============================================================
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        const iconLight = themeToggle.querySelector('.theme-icon-light');
+        const iconDark = themeToggle.querySelector('.theme-icon-dark');
+
+        function setThemeIcons(isLight) {
+            if (iconLight) iconLight.classList.toggle('hidden', !isLight);
+            if (iconDark) iconDark.classList.toggle('hidden', isLight);
+        }
+
+        function setTheme(isLight) {
+            document.body.classList.toggle('light-mode', isLight);
+            setThemeIcons(isLight);
+            localStorage.setItem('jotafix-theme', isLight ? 'light' : 'dark');
+        }
+
+        // Sincroniza el icono con el tema que ya se aplicó al cargar (ver <script> en el <body>)
+        setThemeIcons(document.body.classList.contains('light-mode'));
+
+        themeToggle.addEventListener('click', (e) => {
+            const isLight = !document.body.classList.contains('light-mode');
+
+            // Navegadores sin soporte de View Transitions: cambio instantáneo
+            if (!document.startViewTransition) {
+                setTheme(isLight);
+                return;
+            }
+
+            const x = e.clientX;
+            const y = e.clientY;
+            const endRadius = Math.hypot(
+                Math.max(x, window.innerWidth - x),
+                Math.max(y, window.innerHeight - y)
+            );
+
+            const transition = document.startViewTransition(() => {
+                setTheme(isLight);
+            });
+
+            transition.ready.then(() => {
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${endRadius}px at ${x}px ${y}px)`
+                        ]
+                    },
+                    {
+                        duration: 650,
+                        easing: 'ease-in-out',
+                        pseudoElement: '::view-transition-new(root)'
+                    }
+                );
+            });
+        });
+    }
+
+    // ============================================================
+    // BOTÓN VOLVER ARRIBA
+    // ============================================================
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        function updateBackToTop() {
+            if (window.scrollY > 300) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
+        }
+        updateBackToTop();
+        window.addEventListener('scroll', updateBackToTop);
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -49,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ps4: 'Limpieza PS4',
             ps5: 'Limpieza PS5',
             mando: 'Limpieza Mando',
+            perifericos: 'Limpieza de Periféricos',
             portatil: 'Limpieza Portátil',
             pc: 'Limpieza PC Escritorio',
             pasta: 'Cambio de Pasta Térmica',
@@ -101,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ANTES / DESPUÉS SLIDER
     // ============================================================
     document.querySelectorAll('[data-slider]').forEach(slider => {
-        const afterEl = slider.querySelector('.ba-after');
+        const beforeEl = slider.querySelector('.ba-before');
         const handleEl = slider.querySelector('.ba-handle');
         let isDragging = false;
 
@@ -110,7 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let pct = (x - rect.left) / rect.width;
             pct = Math.min(Math.max(pct, 0.03), 0.97);
             const percent = pct * 100;
-            afterEl.style.width = percent + '%';
+            // clip-path recorta SOLO la parte visible de la capa "antes",
+            // la imagen interior siempre mantiene su tamaño real (sin deformarse)
+            beforeEl.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
             handleEl.style.left = percent + '%';
         }
 

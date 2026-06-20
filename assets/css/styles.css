@@ -284,6 +284,18 @@ body {
 }
 
 /* ============================================================
+   CERTIFICACIONES
+   ============================================================ */
+.cert-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.cert-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.1);
+}
+
+/* ============================================================
    TESTIMONIOS
    ============================================================ */
 .testimonial-card {
@@ -304,102 +316,31 @@ body {
     background: #111;
 }
 
-/* Contenedor ANTES (fondo completo) */
-.ba-before {
+/* Ambas capas (antes/después) ocupan SIEMPRE el tamaño completo
+   del slider — así la foto nunca se deforma ni cambia de escala.
+   Lo único que cambia al arrastrar es qué parte es visible. */
+.ba-layer {
     position: absolute;
     inset: 0;
     overflow: hidden;
 }
 
-/* Contenedor DESPUÉS (ancho variable, encima) */
-.ba-after {
-    position: absolute;
-    top: 0;
-    left: 0;
+.ba-layer img {
+    width: 100%;
     height: 100%;
-    overflow: hidden;
-    min-width: 0;
-    max-width: 100%;
-    transition: none;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
 }
 
-/* Placeholders visuales (se reemplazarán por fotos reales) */
-.ba-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* ANTES: sucio, gris oscuro con overlay de "polvo" */
-.ba-before-visual {
-    background: linear-gradient(135deg, #1a1412, #231d1a);
-}
-
-/* DESPUÉS: limpio, morado suave */
-.ba-after-visual {
-    background: linear-gradient(135deg, #0f0d14, #160e1f);
-    width: 100vw; /* Ocupa el ancho completo dentro del clip */
-}
-
-/* Overlay de polvo visual */
-.ba-dust-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-        radial-gradient(ellipse at 30% 40%, rgba(120,80,40,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 60%, rgba(100,70,30,0.14) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 80%, rgba(80,60,20,0.10) 0%, transparent 50%);
-    backdrop-filter: blur(0.5px);
-}
-
-/* Icono del dispositivo */
-.ba-device-icon {
-    font-size: 60px;
-    color: rgba(255,255,255,0.15);
-    position: relative;
+/* DESPUÉS: capa de fondo, siempre visible al 100% */
+.ba-after {
     z-index: 1;
 }
 
-.ba-before-visual .ba-device-icon {
-    color: rgba(200,150,80,0.25);
-    filter: blur(0.5px);
-}
-
-.ba-after-visual .ba-device-icon {
-    color: rgba(168,85,247,0.35);
-    filter: drop-shadow(0 0 16px rgba(168,85,247,0.4));
-}
-
-/* Badge de temperatura */
-.ba-temp-badge {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
+/* ANTES: capa superior, recortada con clip-path (no con width) */
+.ba-before {
     z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    letter-spacing: 0.02em;
-}
-
-.ba-temp-hot {
-    background: rgba(239,68,68,0.15);
-    color: #f87171;
-    border: 1px solid rgba(239,68,68,0.3);
-}
-
-.ba-temp-cool {
-    background: rgba(168,85,247,0.15);
-    color: #c084fc;
-    border: 1px solid rgba(168,85,247,0.3);
 }
 
 /* Etiquetas ANTES / DESPUÉS */
@@ -411,7 +352,7 @@ body {
     letter-spacing: 0.1em;
     padding: 3px 10px;
     border-radius: 4px;
-    z-index: 2;
+    z-index: 3;
     text-transform: uppercase;
 }
 
@@ -470,3 +411,152 @@ body {
     transform: scale(1.1);
     box-shadow: 0 0 28px rgba(168,85,247,0.8);
 }
+
+/* ============================================================
+   TRANSICIÓN DE BARRIDO AL CAMBIAR DE TEMA
+   ============================================================
+   Desactivamos el cross-fade por defecto del navegador para que
+   solo se vea el barrido circular (clip-path) que dispara script.js
+   con la View Transitions API. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 2;
+}
+
+/* ============================================================
+   BOTÓN VOLVER ARRIBA
+   ============================================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    z-index: 999;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: var(--kuromi-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    border-color: var(--kuromi-purple);
+    transform: translateY(-3px);
+}
+
+/* ============================================================
+   MODO CLARO
+   ============================================================
+   Se activa añadiendo la clase "light-mode" al <body> (ver script.js).
+   Sobreescribe las utilidades de Tailwind usadas en toda la web para
+   ofrecer un tema claro con buen contraste, manteniendo el morado de
+   marca como acento. ============================================================ */
+
+body.light-mode {
+    background-color: #f4f4f6;
+    color: #374151;
+}
+
+/* Fondos */
+body.light-mode .bg-black-zinc { background-color: #f4f4f6 !important; }
+body.light-mode .bg-charcoal { background-color: #ffffff !important; }
+body.light-mode .bg-charcoal\/80 { background-color: rgba(255, 255, 255, 0.85) !important; }
+body.light-mode .bg-gray-800 { background-color: #e5e7eb !important; }
+
+/* Textos */
+body.light-mode .text-white { color: #111827 !important; }
+body.light-mode .text-gray-300 { color: #374151 !important; }
+body.light-mode .text-gray-400 { color: #4b5563 !important; }
+body.light-mode .text-gray-500 { color: #6b7280 !important; }
+body.light-mode .text-gray-600 { color: #6b7280 !important; }
+body.light-mode .hover\:text-white:hover { color: #111827 !important; }
+
+/* Bordes */
+body.light-mode .border-gray-700 { border-color: #d1d5db !important; }
+body.light-mode .border-gray-800 { border-color: #e5e7eb !important; }
+
+/* Navbar */
+body.light-mode #navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+/* Fondo degradado del hero (Tailwind genera esto con variables CSS
+   propias que no pisan las reglas normales de bg-color, así que se
+   sustituye directamente por un fondo plano claro) */
+body.light-mode .hero-bg-gradient {
+    background-image: none !important;
+    background-color: #f4f4f6 !important;
+}
+
+/* Botón de tema y menú móvil */
+body.light-mode #theme-toggle,
+body.light-mode #mobile-menu-btn {
+    color: #374151;
+}
+
+/* Campos de formulario */
+body.light-mode input,
+body.light-mode select,
+body.light-mode textarea {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+}
+body.light-mode .placeholder-gray-500::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Botones secundarios y sociales */
+body.light-mode .btn-secondary {
+    border-color: #d1d5db;
+    color: #111827;
+}
+body.light-mode .social-btn {
+    background: #ffffff;
+    border-color: #d1d5db;
+    color: #4b5563;
+}
+
+/* Loader inicial */
+body.light-mode .loader-ring {
+    border-color: #e5e7eb;
+    border-top-color: var(--kuromi-purple);
+}
+
+/* Botón volver arriba */
+body.light-mode .back-to-top {
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+/* Scrollbar */
+body.light-mode::-webkit-scrollbar-track { background: #f4f4f6; }
+body.light-mode::-webkit-scrollbar-thumb { background: #d1d5db; }
+body.light-mode::-webkit-scrollbar-thumb:hover { background: var(--kuromi-purple); }
+
+/* El mapa mantiene intencionadamente su estilo oscuro en ambos modos */
